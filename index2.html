@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartas Recebidas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Raleway:wght@300;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Preserva o tema original e variáveis */
+    :root {
+      --dark: #0a0a0a;
+      --blood: #6a0f0f;
+      --silver: #e4e4e4;
+      --pink: #ff6b8b;
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    body {
+      min-height: 100vh;
+      background: var(--dark);
+      font-family: 'Raleway', sans-serif;
+      color: var(--silver);
+      overflow-x: hidden;
+    }
+    .bubbles-container {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      filter: blur(25px);
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .cartas-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+      margin-top: 5rem;
+      z-index: 10;
+    }
+    .cartas-btn {
+      padding: 1rem 1.5rem;
+      background: rgba(106,15,15,0.1);
+      border: 2px solid var(--blood);
+      border-radius: 10px;
+      color: var(--silver);
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .cartas-btn:hover {
+      background: rgba(106,15,15,0.2);
+      transform: translateY(-3px);
+    }
+    .content-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 80%;
+      max-width: 600px;
+      padding: 2rem;
+      background: rgba(10,10,10,0.95);
+      border-radius: 15px;
+      display: none;
+      flex-direction: column;
+      z-index: 20;
+      color: var(--silver);
+    }
+    .content-panel.open {
+      display: flex;
+      animation: var(--current-animation) 0.5s ease forwards;
+    }
+    .panel-text {
+      margin-top: 1.5rem;
+      flex: 1;
+      line-height: 1.5;
+    }
+    .petal-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      background: var(--pink);
+      border: none;
+      border-radius: 50% 50% 50% 0/50% 50% 100% 50%;
+      transform: rotate(45deg);
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--silver);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .petal-btn:hover {
+      transform: rotate(45deg) scale(1.1);
+    }
+    /* Animações únicas */
+    @keyframes anim-cabelo {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-olhos {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-sorriso {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-voz {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-jeito {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-amor {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-conquista {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-tempo {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-promessas {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-momentos {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-sonhos {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+    @keyframes anim-nos {0%{opacity:0;}50%{opacity:0.5;}100%{opacity:1;} }
+  /* Estilos da Notificação */
+.notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.notification-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-box {
+    position: relative;
+    background: linear-gradient(135deg, #1a0000, #4a0000);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    border: 1px solid #6a0f0f;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.notification-overlay.active .notification-box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification-box h2 {
+    color: #ff6b8b;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 107, 139, 0.5);
+}
+
+.notification-box p {
+    color: #e4e4e4;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.notification-btn {
+    background: linear-gradient(to right, #6a0f0f, #8a1f1f);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(106, 15, 15, 0.5);
+}
+
+.notification-btn:hover {
+    background: linear-gradient(to right, #8a1f1f, #6a0f0f);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(106, 15, 15, 0.8);
+}
+
+.notification-timer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+}
+
+.notification-timer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #ff6b8b, #6a0f0f);
+    animation: timer 5s linear forwards;
+    border-radius: 15px 15px 0 0;
+}
+
+@keyframes timer {
+    0% { width: 100%; }
+    100% { width: 0%; }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 15px rgba(255, 107, 139, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(255, 107, 139, 0.8); }
+    100% { box-shadow: 0 0 15px rgba(255, 107, 139, 0.5); }
+}
+  
+  
+  </style>
+</head>
+<body>
+  <div class="bubbles-container"></div>
+  <main class="content-wrapper">
+    <div class="cartas-container">
+      <button class="cartas-btn" id="cabelo-btn">cabelo</button>
+      <button class="cartas-btn" id="olhos-btn">olhos</button>
+      <button class="cartas-btn" id="sorriso-btn">sorriso</button>
+      <button class="cartas-btn" id="voz-btn">voz</button>
+      <button class="cartas-btn" id="jeito-btn">jeito</button>
+      <button class="cartas-btn" id="amor-btn">amor</button>
+      <button class="cartas-btn" id="conquista-btn">conquista</button>
+      <div class="notification-overlay" id="notification-overlay">
+        <div class="notification-box">
+            <div class="notification-timer"></div>
+            <h2>Nova conquista!</h2>
+            <p>Defenda meu coração.</p>
+            <button class="notification-btn" onclick="window.location.href='index4.html'">Ver Conquista</button>
+        </div>
+    </div>
+      <button class="cartas-btn" id="tempo-btn">tempo</button>
+      <button class="cartas-btn" id="promessas-btn">promessas</button>
+      <button class="cartas-btn" id="momentos-btn">momentos</button>
+      <button class="cartas-btn" id="sonhos-btn">sonhos</button>
+      <button class="cartas-btn" id="nos-btn">nós</button>
+    </div>
+  </main>
+
+  <!-- Reincluir o script original de bolhas -->
+  <script src="script.js"></script>
+
+  <script>
+
+    
+    // Textos estáticos com múltiplos parágrafos
+    const panelTexts = {
+      cabelo: `
+        Eu gosto de falar do seu cabelo, porque é uma das coisas 
+        que mais me fazem crer sobre meus sentimentos por você, porque
+        quando eu imagino o cheiro do seu cabelo, é um cheiro incrível.
+        Quando imagino a textura do seu cabelo, é sempre uma textura macia...
+        Quando vejo o seu cabelo em fotos eu vejo o quanto ele destaca sua beleza
+        e isso me encanta, porque ainda quando tudo oque tenho é a força da
+        imaginação, sempre é bom, nunca decepcionante, nunca menos do que eu
+        imagino, mas sempre incrível. Eu fico imaginando de vez enquando eu sentado
+        numa cadeira perto enquanto você faz aquelas coisas mirabolantes e que 
+        na minha cabeça é alquimia para deixar o cabelo ainda mais bonito 
+        e é esta uma das cenas mais queridas que consigo imaginar.
+      `,
+      olhos: `
+        Oque dizer? é minha tela de bloqueio. Eu não me canso de olhar pra ela
+        o tempo inteiro, desde que seus olhos viraram minha tela de bloqueio,
+        notei que parei de desbloquear por digital para ver a hora no relógio
+        da tela inicial, e fico apenas acendendo avulsamente para poder ver 
+        a foto dos seus olhos, eu os encaro por alguns segundos, e então
+        eu me alegro, não importa o problema. Eu acho incrível que você
+        me ajudou num momento que nem sabe que aconteceu, eu odeio falar deste
+        assunto, mas como é para exaltar você, não existe problema. 
+        Acho que foi um dia antes de eu te entregar esse site pela primeira vez;
+        eu tinha passado por uma puta crise de ansiedade, daquelas sinistras
+        de perder o ar, foi no meio da madrugada, eu tinha conseguido dormir bem,
+        e acordei com a respiração travada, em um sentimento de desespero miserável
+        eu levantei correndo e peguei o celular encima da mesa do meu PC, 
+        eu sentei na minha cadeira com a respiração pesadíssima, eu olhei para a
+        tela de bloqueio, e comecei a me acalmar, não resolveu de imediato, mas foi
+        uma ajuda insana, porque aliviou, pouco, mas aliviou, eu mandei mensagem pra minha mãe
+        e ela veio ajudar, eu acho mesmo que eu teria me fodido legal se eu não tivesse 
+        me acalmado um pouco para conseguir desbloquear com calma. 
+      `,
+      sorriso: `
+        Eu adoro suas fotos sorrindo, sério. Eu amo seu sorriso, porque me lembra
+        sua risada, os seus momentos "Hawkinha" eu adoro estes momentos, amo estes 
+        momentos! Te ver toda boba por qualquer coisa sempre me deixa feliz, genuinamente.
+        Você é incrível.
+      `,
+      voz: `
+        Sua voz, oque dizer? é simplesmente a primeira coisa que uma pessoa se apaixona
+        quando conhece alguém por esta internet, eu já te disse dezenas de vezes que 
+        adoro seus audios longos de 1, 2 ou 3 minutos, falando sobre toda e qualquer coisa
+        e as vezes só um audio dando risada como no dia do "o homem que não gosta de levar fora
+        é porque gosta de levar dentro — peixe diabo", eu amei aquele audio, eu ouvi ele gargalhando
+        junto, e isso me deu uma sensação tão boa, que eu acho que foi de longe a minha melhor noite 
+        em um bom tempo... Adoro te ouvir!
+      `,
+      jeito: `
+        eu adoro suas formas de agir, suas opniões, sua forma de pensar, tudo é tão incrível e tão 
+        incrível como você é unicamente especial e única em todas as suas coisas! Até seus momentos
+        MÌNËÚRÖ em que seu sotaque PUXA INSANAMENTE e fica extremamente engraçada cada palavra sua
+        eu passei a amar sua forma de agir conforme fui me apaixonando por você, tudo oque era tão
+        estranho para mim antes, foi ficando tão belo, e tão incrível, é como desenhar, primeiro vê
+        o esboço, onde é sem forma, e só se entende a base, depois você dá forma, e então você começa
+        a ver algo e assim foi, conforme eu fui te conhecendo, conhecendo suas razões, seus motivos
+        seus segredos e sua beleza que está tão escondida e bem guardada, que tive que procurar ela
+        com tanta atenção que quase deixei-a passar despercebido. 
+        Vou te amar, independente do que for, foi ou será, porque eu vou aprender a te amar, a amar
+        suas novas formas, a amar seus novos cortes de cabelo, novas cores, aprenderei a amar seus 
+        outros estilos, aprenderei a amar seus gestos e trejeitos, eu me adaptarei a qualquer fase
+        sua se for para poder continuar ao seu lado. 
+      `,
+      amor: `
+        Uma coisa que uma vez me foi perguntando enquanto eu conversava com Reimu a seu respeito foi:
+        "Como você sabe que é amor, e não só 'gostar' ou 'paixão'?" e eu lembro que eu demorei dois dias 
+        pra responder ele, eu não conseguia pensar numa resposta, até ficar até tarde em call com você jogando
+        red dead enquanto você me contava histórias, e ali eu entendi, eu não gosto de você, eu não sou apenas
+        apaixonado por você, eu de fato de amo, porque até nas suas falhas eu consigo ver beleza, até no simples
+        eu vejo o complexo, até num momento tão besta quanto pular dezenas de vezes de uma caixoeira só pra ver
+        a queda do personagem, só pelo fato de estar com você, e ser com você, foi especial, muito mais do que
+        seria com qualquer outra pessoa, foi ali que eu notei que nos momentos simples e nos dificéis, nos desabafos
+        ou nos momentos em que só queremos ficar calados na presença um do outro, eu ainda sim consigo querer estar, 
+        eu ainda assim consigo querer ficar, e por querer ficar, ser feliz... Foi ai que descobri que oque eu sentia
+        era amor, quando eu me irritei com sua irritação, quando fiquei triste quando vi você triste, e quando me alegrei
+        quando você estava alegre, quando entendi seus sentimentos, e quando você entendeu os meus.
+      `,
+      conquista: `
+        Eu ao longo do tempo conquistei você sem perceber, eu conquistei sua confiança, conquistei sua presença,
+        conquistei seus elogios, conquistei seus sorrisos, seus audios e seus textos, foram os melhores presentes
+        que já recebi.
+      `,
+      tempo: `
+        Temos, quase que exatamente 1 anos, na verdade, 11 meses e meio. 
+      `,
+      promessas: `
+        Estarei aqui em cada amanhecer. estarei aqui quando estiver doendo, frio, quente, chovendo, 
+        ou quando tudo estiver vazio. Eu estarei aqui, quando for pra te acomodar enquanto chora,
+        estarei aqui quando for para rir com você, eu irei as vezes rir DE você, como você sempre
+        ri de mim, eu estarei aqui, sempre que você quiser que eu esteja.
+      `,
+      momentos: `
+        1. Red Dead Online - Dia das caichoeiras 
+        2. Rec Room - Dia dos drinks (foi a primeira vez que eu tive uma experiência que fosse próxima à estar com você)
+        3. Assumir - Quando conversamos pela primeira vez sobre oque sentiamos um pelo outro.
+        4. PEIXE DIABO - REIMU É BOIOLA.
+        5. todos os outros dias, literalmente.
+      `,
+      sonhos: `
+        Encontrar você, é o maior dentre todos eles, apenas... Te ver sorrir pessoalmente uma única vez, 
+        e aí, aconteça oque acontecer, nada mais irá me abalar.
+      `,
+      nos: `
+        Eu amo você, de verdade, amo você.
+      `
+    };
+    const labels = ['cabelo','olhos','sorriso','voz','jeito','amor','conquista','tempo','promessas','momentos','sonhos','nos'];
+    labels.forEach(name => {
+      document.getElementById(name + '-btn').addEventListener('click', () => openPanel(name));
+    });
+    function openPanel(name) {
+      document.querySelectorAll('.content-panel').forEach(el => el.remove());
+      const panel = document.createElement('div');
+      panel.className = 'content-panel';
+      panel.style.setProperty('--current-animation', 'anim-' + name);
+      panel.innerHTML = `
+        <button class="petal-btn">&times;</button>
+        <div class="panel-text">${panelTexts[name]}</div>
+      `;
+      document.body.appendChild(panel);
+      requestAnimationFrame(() => panel.classList.add('open'));
+      panel.querySelector('.petal-btn').addEventListener('click', () => panel.remove());
+    }
+
+    document.getElementById('conquista-btn').addEventListener('click', function() {
+    console.log("Botão clicado. Notificação aparecerá em 20 segundos...");
+    
+    // Delay de 20 segundos ANTES de mostrar
+    setTimeout(function() {
+        const notification = document.getElementById('notification-overlay');
+        notification.classList.add('active');
+        console.log("Notificação exibida agora!");
+
+        // Timer de 5 segundos para fechar automaticamente
+        setTimeout(function() {
+            notification.classList.remove('active');
+        }, 5000);
+
+        // Fechar ao clicar no botão "Ver Conquista"
+        document.getElementById('notification-btn').onclick = function() {
+            notification.classList.remove('active');
+            window.location.href = 'index4.html';
+        };
+    }, 5000); // 20.000ms = 20s
+});
+
+  </script>
+</body>
+</html>

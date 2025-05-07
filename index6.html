@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conquistas Da Diabinha</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            animation: glow 2s infinite alternate;
+            margin-bottom: 30px;
+        }
+
+        .achievements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .achievement {
+            background-color: #1a1a1a;
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .achievement:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+        }
+
+        .achievement::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent, transparent, transparent,
+                rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.2)
+            );
+            transform: rotate(30deg);
+            animation: shine 4s infinite;
+        }
+
+        .achievement h3 {
+            color: #ff0000;
+            margin: 5px 0;
+            font-size: 16px;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .achievement p {
+            color: #aaa;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        .icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+            color: #ff0000;
+            text-shadow: 0 0 8px #ff0000;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            }
+            to {
+                text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+            }
+        }
+
+        @keyframes shine {
+            to {
+                top: 120%;
+                left: 120%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>CONQUISTAS DA DONA HAWKINHA</h1>
+
+    <div class="achievements-container">
+        <!-- Conquistas 1 a 77 (espaços vazios para você personalizar depois) -->
+        <div class="achievement">
+            <div class="icon">✏</div>
+            <h3>ESTILO MANEIRO DE ARTE</h3>
+            <p>Conquistou um estilo de arte único e maneiro</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🖤</div>
+            <h3>LINDA PRA KRL GÓTICA</h3>
+            <p>Possui a skill: Combina com goth (muito foda)</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦝</div>
+            <h3>Coração Fleques</h3>
+            <p>Conquistou algo que eu não sabia que dava pra conquistar mais</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦦</div>
+            <h3>Lontra lover</h3>
+            <p>Simplesmente ama lontras</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🙈</div>
+            <h3>Vergonhinha de pedir</h3>
+            <p>Só falta morar comigo e tem vergonha de pedir dinheiro</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🍬</div>
+            <h3>Todas as trufas!</h3>
+            <p>Papou todas as trufas que tinha direito</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦧</div>
+            <h3>Xing Xing Fanclube</h3>
+            <p>Fundadora real e oficial do fã clube do Brasil</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🔴</div>
+            <h3>Cabelo Lindo</h3>
+            <p>Cabelo lindo e cheirosinho</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🟣</div>
+            <h3>banho rosa</h3>
+            <p>ESPUMA ROSA!</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💢</div>
+            <h3>JOGO FOFO</h3>
+            <p>Encontrou e jogou os jogos mais fófós do roblox</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🌊</div>
+            <h3>Será que cai?</h3>
+            <p>Saltou das maiores cachoeiras do red dead Online</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💨</div>
+            <h3>Mira podre</h3>
+            <p>A pior caçadora do red Dead online</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">😈</div>
+            <h3>Protegida do capeta</h3>
+            <p>Ouviu fleques dizer: "E se sua lágrima tocar o solo, o culpado conhecerá o inferno sem sair da terra</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">⁉</div>
+            <h3>BAGUNÇA</h3>
+            <p>Playlist mais bagunçada que minha mente quando penso em você</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💌</div>
+            <h3>Acheiii!</h3>
+            <p>achou as doze cartas</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦌</div>
+            <h3>Fogo nos baitola</h3>
+            <p>Odeia o reimu</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">☯</div>
+            <h3>Paz absoluta</h3>
+            <p>Mora com um skinwalker</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">☢</div>
+            <h3>Exército de baitola</h3>
+            <p>possui +10 amigos gays</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🥞</div>
+            <h3>Da boca de um pra de outro</h3>
+            <p>Os cachorros comem melhor do que o reimu</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🍗</div>
+            <h3>Frango assado</h3>
+            <p>Personagem que a representa é vira literalmente frango-a-passarinho</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🟡</div>
+            <h3>FOME DE DRAGAO</h3>
+            <p>CAPAZ DE BAGAÇAR COM A COMIDA DA ÁFRICA</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦻</div>
+            <h3>Entendido capitão broxa</h3>
+            <p>Ouviu o conselho sobre mandar o primo se foder</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👥</div>
+            <h3>na corda bamba</h3>
+            <p>HAWKÃO/HAWKINHA</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">😋</div>
+            <h3>Fominhaaa</h3>
+            <p>4 miojos em um dia</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🤑</div>
+            <h3>bancária</h3>
+            <p>controla meu dinheiro mais que eu</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👽</div>
+            <h3>Et de Vagina</h3>
+            <p>Mora em varginha</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🙀</div>
+            <h3>Leu até aqui</h3>
+            <p>Você ainda tá lendo?</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🏳‍🌈</div>
+            <h3>FAKE GAY</h3>
+            <p>Fez o tal do malefício achar que era bixa.</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">❌</div>
+            <h3>AGOOOOOORA</h3>
+            <p>As vezes um pouco controladora (coleira)</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🕳</div>
+            <h3>Buraco negro</h3>
+            <p>Insaciável</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">❤</div>
+            <h3>Amançadora de urso</h3>
+            <p>Fez fleques para de ser mau</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💬</div>
+            <h3>Minha hawkinha</h3>
+            <p>Simplesmente 63k de mensagens</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🥩</div>
+            <h3>amostradinha</h3>
+            <p>Mostrou o amburgui dela em call enquanto eu ter fome</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">📚</div>
+            <h3>Corretora</h3>
+            <p>Não pode ver uma virgula errada</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👨‍👧</div>
+            <h3>MANEEEEEIRO</h3>
+            <p>Padrasto mais maneiro do mundo</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🌶</div>
+            <h3>heheheheheh</h3>
+            <p>Simplesmente ardilosa quando quer (tadinho do viado)</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🛸</div>
+            <h3>ovni?</h3>
+            <p>Possívelmente adotou o cachorro do bilú</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">😴</div>
+            <h3>..........</h3>
+            <p>pedi opnião da moana, mas tava dormindo</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🐴</div>
+            <h3>CAVALINHOOOO</h3>
+            <p>Comprou o cavalinho no animal JAM</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🎃</div>
+            <h3>BU!</h3>
+            <p>adoradora de terror</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">♨</div>
+            <h3>Leitora nata</h3>
+            <p>Leu até os livros estranhos</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🌦</div>
+            <h3>hmmm chuvinha</h3>
+            <p>adora uma chuvinha boa</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🔥</div>
+            <h3>FOGOS</h3>
+            <p>Tem vários foguinhos no tiktok</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🔩</div>
+            <h3>CUECA DE FERRO</h3>
+            <p>Mantenha esta cobra longe da minha bunda.</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👹</div>
+            <h3>OQUE É MEU É MEU, FODA-SE</h3>
+            <p>Brigou pelo Happy Tails</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">☠</div>
+            <h3>Enganou o bobo na casca do ovo</h3>
+            <p>Conseguiu fazer a trolagem mais insana pra chamar o reimu de viado</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🐼</div>
+            <h3>Rivalidade feminina</h3>
+            <p>Rivais sempre, iniminigos nunca</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👀</div>
+            <h3>Olhos</h3>
+            <p>Os olhos mais lindos da face da terra</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🕷</div>
+            <h3>MACONHA</h3>
+            <p>MACONHA DESGRAÇADA</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦐</div>
+            <h3>TANKA A ALERGIA A CAMARAO</h3>
+            <p>INALERGIAVEL</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🥇</div>
+            <h3>Nem vou</h3>
+            <p>Se não for pra vencer nem começo</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🥂</div>
+            <h3>hhihihihihahhahahahahah</h3>
+            <p>Bebada com vodka de melância </p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🍏</div>
+            <h3>Maçã nunca</h3>
+            <p>Simplesmente contra alimentação saudávle</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🗽</div>
+            <h3>Sem CPF</h3>
+            <p>Viverá as custas de gato fleques</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🚨</div>
+            <h3>SAI DE BAIXO</h3>
+            <p>Entrou braba na call e cagou geral a pau</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">✔</div>
+            <h3>PERFEITA</h3>
+            <p>EU NÃO COMENTO ERROS, EU NÃO SOU COMO TODOS VOCÊS, EU SOU MELHOR, MAIS ESPERTO, EU SOU MELHOR.</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💝</div>
+            <h3>AAAAAAAAAAAAAAAA</h3>
+            <p>Recusa presentes</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">♟</div>
+            <h3>estrategista</h3>
+            <p>vence a base de não sei</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💻</div>
+            <h3>Meu amiguinho</h3>
+            <p>Comprou pc pra jogar com o fleques </p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🎱</div>
+            <h3>ENFIM 60</h3>
+            <p>eu to tirando criatividade do cu.</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🌗</div>
+            <h3>5 hora tá bom</h3>
+            <p>Dorme trinta vezes num dia pra dar certinho o horário de sono</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💍</div>
+            <h3>Anel forçado</h3>
+            <p>Vai casar comigo por bem ou por mal</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🕶</div>
+            <h3>olhinhos</h3>
+            <p>Fica linda de óculos</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🏐</div>
+            <h3>levanta!!!!!!!</h3>
+            <p>jogadora de volley</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">♠</div>
+            <h3>Manja dos nipes</h3>
+            <p>Boa no baralho</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🐇</div>
+            <h3>Ou yeah</h3>
+            <p>Assistiu devil may cry</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🎞</div>
+            <h3>Maratona</h3>
+            <p>Maratonou filmes com o fleques</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">💎</div>
+            <h3>PORQUE NÃO VAI ME DAR O NUMERO 69?</h3>
+            <p>SOLICITADO POR: AMIGUINHO REIMU AJUDANTE</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🐲</div>
+            <h3>MALLOREEEEEE</h3>
+            <p>MALLOOOOOOOOOOOOOOOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🌆</div>
+            <h3>NOITE</h3>
+            <p>Adora a noite</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🦼</div>
+            <h3>Ácido</h3>
+            <p>RIU DO CADEIRANTE</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🧀</div>
+            <h3>ratinho</h3>
+            <p>Tem uma rata de estimação (kyoko)</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🏃‍♂️</div>
+            <h3>Corre cadeirante</h3>
+            <p>Rir de cadeirante é sacanagem, merece até duas.</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👧</div>
+            <h3>Biografia</h3>
+            <p>Ouviu mais de 50 histórias</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🙏</div>
+            <h3>Emogista</h3>
+            <p>Usuária de emoji</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">🕊</div>
+            <h3>RAMMMMM GRALHA</h3>
+            <p>Grita como uma gralha!</p>
+        </div>
+        <div class="achievement">
+            <div class="icon">👹</div>
+            <h3>Minha dona.</h3>
+            <p>Manda tanto em mim, que eu abandonaria o vasco por ela.</p>
+        </div>
+    </div>
+</body>
+</html>

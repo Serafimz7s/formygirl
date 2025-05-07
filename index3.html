@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>hehe outra página secreta</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #1a0000, #000);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .bouquet {
+      position: relative;
+      display: flex;
+      gap: 0;
+      z-index: 2;
+    }
+
+    .stem {
+      width: 6px;
+      height: 200px;
+      background: linear-gradient(to bottom, #3cb371, #2e8b57);
+      position: relative;
+      border-radius: 3px;
+      transform-origin: bottom center;
+    }
+
+    .stem:nth-child(1) { transform: rotate(-20deg); }
+    .stem:nth-child(2) { transform: rotate(-10deg); }
+    .stem:nth-child(3) { transform: rotate(0deg); cursor: pointer; }
+    .stem:nth-child(4) { transform: rotate(10deg); }
+    .stem:nth-child(5) { transform: rotate(20deg); }
+
+    .leaf {
+      width: 50px;
+      height: 20px;
+      background: linear-gradient(to right, #3cb371, #228b22);
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: 0 0 4px #00ff7f;
+    }
+
+    .leaf.left {
+      left: -45px;
+      top: 80px;
+      transform: rotate(-30deg);
+    }
+
+    .leaf.right {
+      right: -45px;
+      top: 110px;
+      transform: rotate(30deg);
+    }
+
+    .rose {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 120px;
+      z-index: 2;
+    }
+
+    .petal {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at center, #ff0055, #a00044);
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #ff0055;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    .petal:nth-child(1) { top: 25px; left: 20px; }
+    .petal:nth-child(2) { top: 0px; left: 40px; }
+    .petal:nth-child(3) { top: 25px; left: 60px; }
+    .petal:nth-child(4) { top: 45px; left: 40px; }
+    .petal:nth-child(5) { top: 35px; left: 30px; }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+      50% {
+        transform: scale(1.1);
+        filter: brightness(1.4);
+      }
+    }
+
+    .ribbon {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 30px;
+      background: linear-gradient(45deg, #ff3e8d, #ff0055);
+      border-radius: 10px 10px 50% 50%;
+      box-shadow: 0 0 10px #ff2e7a;
+      z-index: 3;
+    }
+
+    .ribbon::before,
+    .ribbon::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(45deg, #ff3e8d, #ff0055);
+      border-radius: 50%;
+      top: -10px;
+      box-shadow: 0 0 8px #ff2e7a;
+    }
+
+    .ribbon::before { left: -20px; }
+    .ribbon::after { right: -20px; }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: red;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explode 2s ease-out forwards;
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    @keyframes explode {
+      to {
+        transform: translate(var(--x), var(--y)) scale(0.1);
+        opacity: 0;
+      }
+    }
+
+    .flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,0,0,0.4), transparent 70%);
+      animation: flashFade 1.5s ease-out forwards;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes flashFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .final-text {
+      position: absolute;
+      color: white;
+      font-size: 2.2em;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      z-index: 10;
+      transition: opacity 1.5s ease, transform 1.5s ease;
+      text-shadow: 0 0 10px red, 0 0 30px crimson;
+    }
+
+    .final-text.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bouquet">
+    <div class="stem"><div class="leaf left"></div><div class="leaf right"></div><div class="rose"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
+    <div class="stem"><div class="leaf left"></div><div class="leaf right"></div><div class="rose"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
+    <div class="stem" id="central-stem"><div class="leaf left"></div><div class="leaf right"></div><div class="rose"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
+    <div class="stem"><div class="leaf left"></div><div class="leaf right"></div><div class="rose"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
+    <div class="stem"><div class="leaf left"></div><div class="leaf right"></div><div class="rose"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
+    <div class="ribbon"></div>
+  </div>
+
+  <div class="final-text" id="finalText">Este é meu primeiro, mas não meu último buquê!</div>
+
+  <script>
+    const centralStem = document.getElementById('central-stem');
+    const finalText = document.getElementById('finalText');
+
+    centralStem.addEventListener('click', () => {
+      for (let i = 0; i < 300; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const x = (Math.random() - 0.5) * 1200 + 'px';
+        const y = (Math.random() - 0.5) * 1200 + 'px';
+        particle.style.setProperty('--x', x);
+        particle.style.setProperty('--y', y);
+        const hue = Math.floor(Math.random() * 30 + 350);
+        particle.style.background = `hsl(${hue}, 100%, 60%)`;
+        particle.style.width = particle.style.height = Math.random() * 8 + 4 + 'px';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 2000);
+      }
+
+      // Flash de fundo
+      const flash = document.createElement('div');
+      flash.classList.add('flash');
+      document.body.appendChild(flash);
+      setTimeout(() => flash.remove(), 1500);
+
+      // Texto final
+      setTimeout(() => {
+        finalText.classList.add('show');
+      }, 1800);
+    });
+  </script>
+
+</body>
+</html>

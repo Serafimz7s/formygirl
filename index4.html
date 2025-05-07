@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sequestre o flequs</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #300000, #000);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: #ff3366;
+      font-size: 2em;
+      z-index: 10;
+      position: relative;
+    }
+
+    #counter {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 51, 102, 0.8);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      z-index: 10;
+    }
+
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 90vh;
+      overflow: hidden;
+    }
+
+    #player {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: url(diabinha.png) no-repeat center;
+      background-size: contain;
+      z-index: 2;
+    }
+
+    .heart {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: url(serafim.png) no-repeat center;
+      background-size: contain;
+      transition: transform 0.2s;
+      z-index: 1;
+    }
+
+    #background-effect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #a50122;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.5; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    .message {
+      position: absolute;
+      color: #ff3366;
+      font-size: 1.2em;
+      z-index: 99;
+      animation: fadeOut 10s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>caça malefício</h1>
+  <div id="counter">Corações coletados: 0</div>
+  <div id="game">
+    <div id="background-effect"></div>
+    <div id="player"></div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    const game = document.getElementById('game');
+    const counter = document.getElementById('counter');
+
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
+    const speed = 5;
+    let heartsCollected = 0;
+
+    const keys = {};
+    document.addEventListener('keydown', e => keys[e.key] = true);
+    document.addEventListener('keyup', e => keys[e.key] = false);
+
+    function updatePlayerPosition() {
+      if (keys['ArrowUp'] || keys['w']) playerY -= speed;
+      if (keys['ArrowDown'] || keys['s']) playerY += speed;
+      if (keys['ArrowLeft'] || keys['a']) playerX -= speed;
+      if (keys['ArrowRight'] || keys['d']) playerX += speed;
+
+      playerX = Math.max(0, Math.min(window.innerWidth - 60, playerX));
+      playerY = Math.max(0, Math.min(window.innerHeight - 60, playerY));
+
+      player.style.left = playerX + 'px';
+      player.style.top = playerY + 'px';
+    }
+
+    function distance(a, b) {
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+
+    function createEnemyHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      const posX = Math.random() * (window.innerWidth - 40);
+      const posY = Math.random() * (window.innerHeight - 40);
+      heart.style.left = posX + 'px';
+      heart.style.top = posY + 'px';
+      game.appendChild(heart);
+
+      function moveAway() {
+        const heartRect = heart.getBoundingClientRect();
+        const dx = heartRect.left - playerX;
+        const dy = heartRect.top - playerY;
+        const dist = Math.max(1, Math.hypot(dx, dy));
+
+        const evadeSpeed = 2;
+        const newX = parseFloat(heart.style.left) + (dx / dist) * evadeSpeed;
+        const newY = parseFloat(heart.style.top) + (dy / dist) * evadeSpeed;
+
+        heart.style.left = Math.max(0, Math.min(window.innerWidth - 40, newX)) + 'px';
+        heart.style.top = Math.max(0, Math.min(window.innerHeight - 40, newY)) + 'px';
+
+        const heartCenter = {
+          x: heart.offsetLeft + 20,
+          y: heart.offsetTop + 20
+        };
+        const playerCenter = {
+          x: playerX + 30,
+          y: playerY + 30
+        };
+
+        if (distance(heartCenter, playerCenter) < 50) {
+          heart.remove();
+          heartsCollected++;
+          counter.textContent = 'Fleques coletados: ' + heartsCollected;
+          showLove();
+          checkAchievements();
+        }
+      }
+
+      const moveInterval = setInterval(() => {
+        if (!document.body.contains(heart)) {
+          clearInterval(moveInterval);
+        } else {
+          moveAway();
+        }
+      }, 50);
+    }
+
+    const messages = [
+      "Eu sempre vou estar aqui, não importa a circunstância",
+      "eu quero ser seu porto seguro, acredite em mim.",
+      "Você sempre está nos meus melhores sonhos",
+      "Eu aceito tema flamengo na nossa futura casa.",
+      "eu sou grato por te ter.",
+      "eu me orgulho de ter você em minha vida, você não sabe a diferença que faz",
+      "eu amo você.",
+      "vou te conquistar todos os dias, até meu ultimo dia",
+      "eu aceito ser parça desse rival ai.",
+    ];
+
+    function showLove() {
+      const msg = document.createElement('div');
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      msg.textContent = messages[randomIndex];
+      msg.className = 'message';
+      msg.style.left = playerX + 'px';
+      msg.style.top = (playerY - 30) + 'px';
+      game.appendChild(msg);
+      setTimeout(() => msg.remove(), 2000);
+    }
+
+    function createParticles() {
+      const bg = document.getElementById('background-effect');
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = 100 + Math.random() * 20 + '%';
+        p.style.animationDuration = 4 + Math.random() * 4 + 's';
+        p.style.opacity = Math.random();
+        bg.appendChild(p);
+      }
+    }
+
+    function gameLoop() {
+      updatePlayerPosition();
+      requestAnimationFrame(gameLoop);
+    }
+
+    setInterval(createEnemyHeart, 2000);
+    createParticles();
+    gameLoop();
+
+    // Sistema de conquistas
+    const achievements = [
+      { threshold: 5, message: "Recompensa: qualquer pedido aleatório" },
+      { threshold: 10, message: "Recompensa: 1 trufa, aceita obrigatóriamente" },
+      { threshold: 20, message: "Recompensa: 2 perguntas, uma respondo verdadeiramente, outra me negarei." },
+      { threshold: 30, message: "recompenFoto minha fazendo oque você pedir" },
+      { threshold: 40, message: "Recompensa, NÃO SEI, FIQUEI SEM CRIATIVIDADE, FAÇO QUALQUER DESENHO." }
+    ];
+
+    let unlockedAchievements = [];
+
+    function checkAchievements() {
+      achievements.forEach(achievement => {
+        if (heartsCollected >= achievement.threshold && !unlockedAchievements.includes(achievement.threshold)) {
+          unlockedAchievements.push(achievement.threshold);
+          showAchievement(achievement.message);
+        }
+      });
+    }
+
+    function showAchievement(message) {
+      const msg = document.createElement('div');
+      msg.textContent = "🏆 Conquista desbloqueada: " + message;
+      msg.className = 'message';
+      msg.style.left = (window.innerWidth / 2 - 150) + 'px';
+      msg.style.top = '50px';
+      game.appendChild(msg);
+      setTimeout(() => msg.remove(), 10000);
+    }
+  </script>
+</body>
+</html>

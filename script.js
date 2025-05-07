@@ -111,3 +111,17 @@ if(isMobile()) {
     `;
     document.head.appendChild(style);
 }
+
+function handleImageClick() {
+    // Função que será executada quando a imagem for clicada
+    // Você pode personalizar esta função conforme necessário
+    console.log("Imagem secreta clicada!");
+    // Exemplo: window.location.href = 'galeria.html';
+}
+
+// Mantenha as outras funções existentes (como changeImage)
+
+function handleImageClick() {
+    // Redireciona para index3.html quando a imagem é clicada
+    window.location.href = 'index3.html';
+}

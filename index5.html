@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todos os momentos</title>
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+  background: #000 radial-gradient(circle at center, #111 0%, #000 100%);
+  background-blend-mode: multiply;
+}
+
+
+    #container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mensagem {
+      position: absolute;
+      width: 180px; /* largura fixa para permitir quebra de linha */
+      color: #ff0000;
+      text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
+      font-size: 18px;
+      line-height: 1.4;
+      white-space: normal; /* permite quebra de linha */
+      word-wrap: break-word;
+      transition: top 0.5s linear, left 0.5s linear;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script>
+    // "Biblioteca" conversa como array
+    const conversa = [
+"F é por isso que eu vou me esforçar como ninguém se esforçou" ,
+"F é por isso que eu vou lutar com quem for como ninguém lutou" ,
+"F se você me disse que nunca recebeu flores, então eu quero ser o primeiro" ,
+"F que nunca te trataram assim, então serei o primeiro" ,
+"F que nunca te fizeram sentir bonita, que te elogiaram e te trataram como uma princesa, então eu vou ser o primeiro" ,
+"F eu vou ser o primeiro a me botar na frente de qualquer coisa por você" ,
+"F E eu vou dar oque for necessário, farei o possível e o impossível pra conquistar o seu coração que não sabe oque sente" ,
+"F mas eu não vou poder fazer isso se você me disser que não quer" ,
+"F eu vou fazer oque for necessário para que dê certo, eu vou correr distâncias e como eu já disse" ,
+"F se a distância for o problema eu vou me levantar cinco da manhã todo dia de novo como eu fiz por longos anos por mim mesmo, só que dessa vez por você" ,
+"F eu vou aguentar um patrão de merda" ,
+"F eu vou aguentar a insônia" ,
+"F as noites frias" ,
+"F os surtos" ,
+"F oque for necessário para que dê certo" ,
+"F porque pra mim, é isso que é amor" ,
+"F se sacrificar pelo outro" ,
+"F e botar ele a frente de você mesmo" ,
+"F é por isso que eu faço tudo que faço" ,
+"F eu não tenho vergonha de te amar" ,
+"F não tenho receio" ,
+"F não tenho medo" ,
+"F mas eu só poderei te esquentar no meu abraço, se você me disser que está com frio" ,
+"F você não é ingrata" ,
+"F você me deu bem mais doque eu poderia pagar com seja lá oque eu pudesse te dar" ,
+"F sem perceber, sem ter culpa e sem se atirar de cabeça, você me ensinou que até a escória como eu, até o tipo de gente lixosa e com tamanha podridão nas mãos pode amar e ser amado" ,
+"D Aí mn minha cabeça começou a explodir pq disso" ,
+"F Desculpa hawks, eu devia ter deixado pra falar isso amanhã, sei lá" ,
+"D Nn é pq disso" ,
+"D É de tudo mesmo" ,
+"D Quando parece q tá tudo de boa, aparece gente falando um monte de coisa pra colocar mais pressão na minha cabeça" ,
+"F Eu sei" ,
+"F eu tô te sufocando" ,
+"F e isso não é justo" ,
+"D Vc nn" ,
+"F você não pediu e nem merece essa barra" ,
+"D O felca e a ponyo q tão me fazendo pensar dms" ,
+"F eles com medo do que você pode fzer comigo" ,
+"F não é sua responsabilidade" ,
+"F você não aceitou nenhum acordo" ,
+"D Isso, ficam falando demais não sabendo de nada" ,
+"D Sla acho q n esperava isso deles, principalmente da ponyo" ,
+"F O felca sabe até de mais, a ponyo não sabe de nada, mas o felca cala a boca quando eu digo pra ele calarem a boca" ,
+"D Mesmo entendendo a preocupação" ,
+"F Eu sei, isso é literalmente te tratar como se você estivesse me usando" ,
+"D É" ,
+"F oque não é verdade" ,
+"F nem de longe" ,
+"D E fica parecendo que realmente tô fazendo isso" ,
+"F eu queria te dizer pra não se preocupar com eles" ,
+"F mas até eu de vez enquando fico com a cabeça a milhão por causa disso" ,
+"F se você quiser, eu falo com eles para pararem de te encer com isso" ,
+"F porque eu vejo que você tenta, vejo mais do que qualquer um" ,
+"F porque se não tentasse não aceitaria nada do que faço" ,
+"F tal como fez com aquele garoto do shopping" ,
+"F você não tá me pegando de surpresa com tudo isso" ,
+"F eu só quero que você descanse" ,
+"F e fique tranquila" ,
+"F Não perca a noite de sono por causa disso, nem deles" ,
+"F a ponyo é inexperiente e não sabe oque fala" ,
+"F e o felca tá com medo de ferro quebrar cortando maçã" ,
+"D Que?" ,
+"F Quando você descobriu que era um encontro, você só parou de dar trela e se afastou" ,
+"D Acalmei já, achei um joguinho legal aq" ,
+"D N tô preocupado com eles, só um pouco com a ponyo, tô preocupada com vc" ,
+"F Eu tô bem" ,
+"D Ah é, nem lembrava desse negócio" ,
+"F Eu até ia desabar com o reimu" ,
+"F porque eu disse que não ligava, mas de vez enquando arde a ferida sabe?" ,
+"D Sei" ,
+"F eu penso de mais, as coisas na minha cabeça vão rolando pra um lado que eu não gosto e não acredito" ,
+"D Faz parte, não dá pra fingir que não" ,
+"D Se vc acha que vai te fazer bem fala com ele, já que de qualquer forma ele tá te ajudando mais do que quem eu esperava que fosse te ajudar" ,
+"F O reimu é bom nisso, eu não tenho o anjinho do braço esquerdo então as vezes é bom ter um idiota pra fazer esse papel" ,
+"F quando fico inseguro, quando fico triste, ou quando começo a acelerar" ,
+"F ele é o primeiro a me dizer pra não desistir kkkkkk" ,
+"F Por maior que seja a rivalidade feminina com você" ,
+"F eu só quero que você fique bem" ,
+"F você ficando bem, o resto eu me viro" ,
+"F acabei nem comprando bebida, a distribuidora fechou cedo por causa do feriado" ,
+"F eu posso até ligar um pouquinho" ,
+"F mas é oque eu te disse diabinha" ,
+"F eu só vou soltar sua mão, se você soltar a minha" ,
+"F e eu só vou parar de me esforçar, quando você me disser que não quer que eu me esforce mais" ,
+"F você me ensinou que eu posso mudar, que eu posso ser melhor e que meu passado de nada importa" ,
+"F então eu vou com você" ,
+"F tijolinho por tijolinho, lembra?" ,
+"D Viadofudido" ,
+"F ou vou te ajudar a construir esse sentimento dentro de você" ,
+"D 🙏" ,
+"D Isso é algo que me incomoda, não ter esse sentimento de jeito algum" ,
+"F até que você aprenda a me amar, ou só entenda que infelizmente não serei eu" ,
+"D Sei lá" ,
+"D Já travei no jogo" ,
+"D Q odio" ,
+"F você não tem porque nunca te ensinaram a ter" ,
+"F pelo que você me diz" ,
+"F se algo simples como oque eu falei" ,
+"F foi algo que nunca te disseram" ,
+"F então você só passou longe da pessoa certa" ,
+"D Eu nem tentava mais achar uma pessoa certa" ,
+"F eu sei o quanto é difícil" ,
+"D Tudo q já falaram de min foi q ngm iria gostar do meu jeito de ser" ,
+"D E eu aceitei" ,
+"F então eu sou o ninguém, meu bem" ,
+"F eu adoro o seu jeito de ser" ,
+"F eu adoro cada traço da sua personalidade" ,
+"F cada particula que te faz ser você" ,
+"F eu acho lindo você brincando com meu rival" ,
+"F você é difícil, é complicada, e todos nós temos nossos problemas" ,
+"F tem dias que eu não quero ver a luz do sol e haverão dias que você não vai querer me ver nem pintado de Dress to Impress" ,
+"F e nós dois já sabemos que eu amo um desafio" ,
+"F então eu te prometo" ,
+"F Eu vou fazer de tudo por você" ,
+"F eu vou contrariar cada imbecil que te tratou mal" ,
+"F eu vou contra a maré se for preciso" ,
+"D Nem pintado de dress to impress" ,
+"D Me fez rir" ,
+"D Ai mn tô mais calma, pelo menos um pouco" ,
+"D E a dor passou" ,
+"F YUUUPIII" ,
+"F queria dar um beijinho na testa" ,
+"D Sdd de usar gif dela" ,
+"D Vou ir concentrar pra dormir" ,
+"D Era pra eu ir pra aula amanhã" ,
+"D Mas tô fingindo que nem tem aula amanhã" ,
+"D 🙏" ,
+"F Tá bom minha garotinha linda e maravilhosa" ,
+"D Fica bem felicio" ,
+"D Boanoite" ,
+"D Vai lá fazer caridade pra ceita lgbt" ,
+"D Até amanhã" ,
+"F Até amanhã meu bem" ,
+"F eu te amo mais do que a mim mesmo" ,
+"D Bora?" ,
+"F nhe, eu deixo aberto por deixar" ,
+"D Nem vejo" ,
+"D Preguiça" ,
+"D Aí consegui" ,
+"F ." ,
+"D Vô mandar uns print pro ce ter uma ideia, mas basicamente ele tava incomodando os outros" ,
+"D Pq querendo ou n o comportamento depreciativo dele tava irritando MT gente" ,
+"F eu vi, eu sou aquela pessoa que vê uma pessoa claramente se vitimizando por atenção, e fica: :bibidahanako:" ,
+"F o cara o dia todo reclamando: 'ninguém me ama, ninguém me dá atenção, isso e aquilo'" ,
+"F Eu levei no respeito porque com desconhecido, eu sou uma pessoa muito respeitosa, eu acho, mas, que é esquisito é." ,
+"D Dps q ele brigo com a menina lá foram até reclamar no meu pv" ,
+"D E eu tbm tava com raiva disso, então aproveitei pra fala com o Reimu" ,
+"D Tinha mais coisa antes disso mas eu falei desse negócio q ele faz q tava chato" ,
+"D Ent mano tava chato já, toda hora isso, ele foi se vitimizar no pv da menina vei, ela teve motivo pra surta com ele" ,
+"F cara, eu sou pavio curto, se o cara diz: Eu te amo" ,
+"F eu digo: fala isso não, eu já estou em um relacionamento." ,
+"F e o cara tilta comigo porque eu neguei o 'eu te amo' dele" ,
+"D A primeira vez q ele me falo isso eu ignorei, da outra falei fds pra isso e ele parou" ,
+"F é meio palito queimado pra eu mandar ele tomar no cu dele, Gwen tava no direito dela:/" ,
+"D Eu falei isso pra ele quando ele veio fala sobre no meu pv" ,
+"D Ent, parece até q vc bateu no cara de tanto q ele se vitimiza" ,
+"D Ent antes eu achei q ela tinha achado do nd que era pq dela o desabafo, mas ai falei com o reimu e ele disse que ele foi no pv tbm" ,
+"F o padrão dele é simples" ,
+"F ele mete um 'Eu te amo' pra uma mina, se ela levar na boa, pelas mensagens dele ele escala" ,
+"F tu fala algo, tipo, sla: Eu gosto de slipknot" ,
+"F ele responde dizendo: 'nur, eu também, casa comigo?'" ,
+"F uns chamam de gado, eu chamo de desesperado, outros chamam de esquisitão" ,
+"F a primeira vez que eu vi, o cara tava reclamando com alguém, meteu um: ninguém me ama, nem me suporta" ,
+"F eu falei que era cristão e que em cristo amava ele, e o cara dropou um 'ok'" ,
+"D Eu vi isso, falei q era vdd" ,
+"F mas assim que alguma outra mina, respondeu ele, ele faltou chorar pra ela" ,
+"F O cara é o Rei da coitadolândia" ,
+"D Ele tá falando cmg no pv" ,
+"D Tava querendo q eu mandasse o link do server pra ele dnv" ,
+"F manda não, papo reto" ,
+"D Mandei não" ,
+"D Fds q ele foi banido e nem pode entra" ,
+"D Vô perder tempo com isso não" ,
+"D Falei logo q ele foi expulso por ele mesmo" ,
+"D Quw ele é o problema e acabou" ,
+"F eu tenho uma frase pra mim que é simples e fácil ded se entender e aplicar" ,
+"F 'tem nariz de porco, orelha de porco, rabo de porco, tenha certeza que não é um gato.'" ,
+"F e é simples assim, o maluco é um vitimista problemático porque é isso que demonstra ser, quando surge uma pessoa assim numa comunidade, ambiente de trabalho, escola" ,
+"F ele vira o câncer do ambiente até ser removido" ,
+"D Mas foi assim mesmo" ,
+"D Maluco chato" ,
+"D Porra" ,
+"F Deixa o coitado viver na coitadíce dele, ele saiu, então deixa ele fora que todo mundo ganha" ,
+"D Eu ia xingar ele no desabafo mas n fui por respeito" ,
+"D Ai a menina brigo com ele" ,
+"F o cara, meteu, puramente um: 'eu quitei, se preocupem de ter feito algo comigo'" ,
+"F sinceramente, achei a gwen muito educada" ,
+"D O reimu ainda fingiu de sonso" ,
+"F Eu simplesmente nn suporto gente assim" ,
+"D E eu tbm, falei pro ce e pra mirko so oq aconteceu" ,
+"D Vdd, achei q era sem razão mas percebi q ela falou e ainda foi educada" ,
+"D Poderia ter sido pior" ,
+"F o mlq é um coitado, gosta de ser coitado" ,
+"F é o jeito que achou de ser visto, ele só não entendeu, que ser visto como um coitado por uns vai te render atenção, lamúria e abraço, por outros vai te render um: Tu vira home, seu sacana" ,
+"D Falei q tinha mó povo querendo briga com ele, só n fazia pra n arruma problema" ,
+"D Ele jura que tá certo e que foi banido sem razão" ,
+"F o cara é insanamente irritante" ,
+"F a primeira vez que eu trombo com um narcisista vitimista, e ele é logo assim :Coringuei:" ,
+"D Ent misericórdia" ,
+"D Moodio" ,
+"D Ele jura q tá certo mano" ,
+"F i loose" ,
+"F o cara" ,
+"F é" ,
+"F um" ,
+"F sacana" ,
+"F ele quer por tudo nesse mundo te fazer sentir dó dele" ,
+"D Oq e isso" ,
+"D Fez sentir odio" ,
+"F eu vs 40 zumbi (rodei)" ,
+"F broquea o cabra" ,
+"D Po man, acho que tinha chance viu" ,
+"D Deixa ele fala" ,
+"D Ele tá falando de um povo q foi fala com ele" ,
+"D Ele é amg do sukuna que é adm" ,
+"D Mas ele n vai tirar o ban n" ,
+"D Provavelmente" ,
+"F uma administração decente" ,
+"F funciona de forma simples" ,
+"F o cara foi banido, por gerar problemas" ,
+"F nn tem perdão" ,
+"D Ele fico puto pq n falaram diretamente com ele" ,
+"D Mas é pra isso q tem os adm" ,
+"D Se alguém sentir q tem algo errado, reclama pra ser resolvido" ,
+"D Se n não tinha pq" ,
+"D Cara deu tchau 15 vez já" ,
+"F diz tchau e some" ,
+"F o cara QUER atenção" ,
+"D Já parei de responder já" ,
+"D Ele queria fala com o povo da house" ,
+"F ele quer se vitimizar ou até te matar pelo cansaço, (te fazer ceder), ou até tu enputecer com ele e ele ganhar razão" ,
+"D Vô me meter nisso não, problema dele" ,
+"D Toda hora ele se faz de coitado e como e injustiça ele ser expulso" ,
+"D Sendo q no cmc do papo eu disse as razões disso" ,
+"F ent" ,
+"F dexa ele se lascar" ,
+"D Se ele pedir pro sukuna e ele mandar ai o problema é todo deles lá" ,
+"D Mano" ,
+"D A sakura n ia sair porra" ,
+"F ela" ,
+"F voltou?" ,
+"D Ela tentou me dar bronca na mudae" ,
+
+];
+
+    const container = document.getElementById("container");
+    const larguraColuna = 200;
+    const alturaTela = window.innerHeight;
+    const larguraTela = window.innerWidth;
+    let colunaAtual = 0;
+    let linhaAtualY = 0;
+    let index = 0;
+
+    function criarMensagem(texto, x, y) {
+      const div = document.createElement("div");
+      div.classList.add("mensagem");
+      div.style.left = `${x}px`;
+      div.style.top = `${y}px`;
+      div.textContent = texto;
+      container.appendChild(div);
+      return div;
+    }
+
+    function proximaMensagem() {
+      const texto = conversa[index % conversa.length];
+      const novaMensagem = criarMensagem(texto, colunaAtual, linhaAtualY);
+
+      // Espera o navegador renderizar e mede a altura real
+      requestAnimationFrame(() => {
+        const alturaReal = novaMensagem.offsetHeight;
+        linhaAtualY += alturaReal + 10;
+
+        if (linhaAtualY >= alturaTela) {
+          linhaAtualY = 0;
+          colunaAtual += larguraColuna;
+          if (colunaAtual + larguraColuna >= larguraTela) {
+            colunaAtual = 0;
+          }
+        }
+      });
+
+      index++;
+    }
+
+    setInterval(proximaMensagem, 300); // Adiciona nova mensagem a cada 800ms
+  </script>
+</body>
+</html>
